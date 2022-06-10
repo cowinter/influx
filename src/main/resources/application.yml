@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: influx
+  influx:
+    url: http://81.68.76.15:8086
+    user: user_01
+    password: user_pwd_01
+    token: tOkw91REtIzHc5ArwokoTbxIQLsiBnJ07mOLUWkXstCxp71GbCTZj8EzJQZ84_qwZcpM5iRUrCch61sEF9LhNQ==
+    org: org_01
+    bucket: bucket_01
