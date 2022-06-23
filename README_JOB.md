@@ -3,6 +3,8 @@
 2. 分布式事务.
 3. blockingQueue
 4. nacos
+# mysql
+1. mysql 窗口函数
 # nginx
 1. 解决跨域
 # influxdb
