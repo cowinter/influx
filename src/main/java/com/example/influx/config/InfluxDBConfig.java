@@ -1,6 +1,7 @@
 package com.example.influx.config;
 
 
+import com.influxdb.LogLevel;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,8 @@ public class InfluxDBConfig {
     public InfluxDBClient createClient(){
         InfluxDBClient influxDBClient =
                 InfluxDBClientFactory.create(influxUrl, influxToken.toCharArray(), influxOrg,influxBucket);
+//        influxDBClient.setLogLevel(LogLevel.BODY);
+        influxDBClient.enableGzip();
         return influxDBClient;
     }
 }

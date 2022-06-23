@@ -4,9 +4,9 @@ spring:
   application:
     name: influx
   influx:
-    url: http://81.68.76.15:8086
-    user: user_01
-    password: user_pwd_01
-    token: tOkw91REtIzHc5ArwokoTbxIQLsiBnJ07mOLUWkXstCxp71GbCTZj8EzJQZ84_qwZcpM5iRUrCch61sEF9LhNQ==
-    org: org_01
-    bucket: bucket_01
+    url: http://81.68.76.15:8086?readTimeout=5000&connectTimeout=5000&logLevel=BODY
+    user: user_02
+    password: user_pwd_02
+    token: 3PI0dMFVNGb2AqXxjkBTXH0aXRUfzvO8g0Ks6K3MMsIytYq2SehcXbT_aaAK_5lwLDhfTc4VbfUns3uvGwctcw==
+    org: org_02
+    bucket: bucket_02

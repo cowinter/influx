@@ -1,27 +1,31 @@
-package com.example.influx.example;
+package com.example.influx.example.read;
 
+import com.influxdb.annotations.Column;
+import com.influxdb.annotations.Measurement;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.QueryApi;
 import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
  * @author Shen
- * @Description TODO
+ * @Description 同步查询
+ * The synchronous query is not intended for large query results because the Flux response can be potentially unbound.
  * @createTime 2022-06-10
  */
 public class SynchronousQuery {
-    private static char[] token = "tOkw91REtIzHc5ArwokoTbxIQLsiBnJ07mOLUWkXstCxp71GbCTZj8EzJQZ84_qwZcpM5iRUrCch61sEF9LhNQ==".toCharArray();
-    private static String org = "org_01";
+    private static char[] token = "3PI0dMFVNGb2AqXxjkBTXH0aXRUfzvO8g0Ks6K3MMsIytYq2SehcXbT_aaAK_5lwLDhfTc4VbfUns3uvGwctcw==".toCharArray();
+    private static String org = "org_02";
 
     public static void main(final String[] args) {
 
         InfluxDBClient influxDBClient = InfluxDBClientFactory.create("http://81.68.76.15:8086", token, org);
 
-        String flux = "from(bucket:\"bucket_01\") |> range(start: 0)";
+        String flux = "from(bucket:\"bucket_02\") |> range(start: 0)";
 
         QueryApi queryApi = influxDBClient.getQueryApi();
 
@@ -29,6 +33,7 @@ public class SynchronousQuery {
         // Query data
         //
         List<FluxTable> tables = queryApi.query(flux);
+        System.out.println(tables.size());
         for (FluxTable fluxTable : tables) {
             List<FluxRecord> records = fluxTable.getRecords();
             for (FluxRecord fluxRecord : records) {
@@ -38,4 +43,17 @@ public class SynchronousQuery {
 
         influxDBClient.close();
     }
+
+//    @Measurement(name = "temperature")
+//    public static class Temperature {
+//
+//        @Column(tag = true)
+//        String location;
+//
+//        @Column
+//        Double value;
+//
+//        @Column(timestamp = true)
+//        Instant time;
+//    }
 }

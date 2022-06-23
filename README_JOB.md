@@ -1,0 +1,9 @@
+# java
+1. 注解
+2. 分布式事务.
+3. blockingQueue
+4. nacos
+# nginx
+1. 解决跨域
+# influxdb
+1. 批量数据录入
