@@ -16,7 +16,7 @@ public class Temperature {
     public String location;
 
     @Column
-    public Double value;
+    public Integer valueInt;
 
     @Column(timestamp = true)
     public Instant time;

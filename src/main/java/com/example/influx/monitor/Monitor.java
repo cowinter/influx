@@ -1,5 +1,6 @@
 package com.example.influx.monitor;
 
+import com.example.influx.annotation.LogMath;
 import com.example.influx.domain.Temperature;
 import com.example.influx.example.write.WriteDataNoBlocking;
 import com.influxdb.annotations.Column;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,13 +36,19 @@ public class Monitor {
 
     private InfluxDBClient influxDBClient;
 
+    private static Random random ;
+    {
+        random = new Random();
+    }
+
     @Scheduled(fixedRate = 5000)
+    @LogMath(value = "writeApi",ratio = 100)
     public void writeQPS(){
         log.info("开始时间{}",Calendar.getInstance().getTime());
         try(WriteApi writeApi = influxDBClient.makeWriteApi()){
             writeApi.listenEvents(WriteSuccessEvent.class, event->{
                 String data = event.getLineProtocol();
-                System.out.println("插入成功");
+//                System.out.println("插入成功");
                 System.out.println(data);
             });
             writeApi.listenEvents(WriteErrorEvent.class, writeErrorEvent -> {
@@ -52,7 +60,7 @@ public class Monitor {
             //
             Temperature temperature = new Temperature();
             temperature.location = "south";
-            temperature.value = (Math.random());
+            temperature.valueInt = (random.nextInt(10));
             temperature.time = Instant.now();
 
             writeApi.writeMeasurement(WritePrecision.NS, temperature);
