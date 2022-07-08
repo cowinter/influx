@@ -41,7 +41,7 @@ public class Monitor {
         random = new Random();
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 1000)
     @LogMath(value = "writeApi",ratio = 100)
     public void writeQPS(){
         log.info("开始时间{}",Calendar.getInstance().getTime());
@@ -60,7 +60,10 @@ public class Monitor {
             //
             Temperature temperature = new Temperature();
             temperature.location = "south";
-            temperature.valueInt = (random.nextInt(10));
+//            temperature.city = "shanghai";
+//            temperature.valueInt = Integer.valueOf(random.nextInt(100));
+//            temperature.value = Double.valueOf(random.nextInt(100));
+            temperature.value = random.nextInt(100);
             temperature.time = Instant.now();
 
             writeApi.writeMeasurement(WritePrecision.NS, temperature);

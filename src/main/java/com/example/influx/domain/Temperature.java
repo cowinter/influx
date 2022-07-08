@@ -15,8 +15,11 @@ public class Temperature {
     @Column(tag = true)
     public String location;
 
+//    @Column(tag = true)
+//    public String city;
+
     @Column
-    public Integer valueInt;
+    public Integer value;
 
     @Column(timestamp = true)
     public Instant time;

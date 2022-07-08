@@ -46,7 +46,7 @@ public class WriteDataNoBlocking {
             //
             Temperature temperature = new Temperature();
             temperature.location = "south";
-            temperature.value = 630D;
+            temperature.value = 640D;
             temperature.time = Instant.now();
 
             writeApi.writeMeasurement(WritePrecision.NS, temperature);
@@ -56,13 +56,26 @@ public class WriteDataNoBlocking {
     }
 
     @Measurement(name = "temperature")
-    private static class Temperature {
+    public static class Temperature {
 
         @Column(tag = true)
         String location;
 
         @Column
         Double value;
+
+        @Column(timestamp = true)
+        Instant time;
+    }
+
+    @Measurement(name = "school")
+    private static class School {
+
+        @Column(tag = true)
+        String location;
+
+        @Column
+        String value;
 
         @Column(timestamp = true)
         Instant time;

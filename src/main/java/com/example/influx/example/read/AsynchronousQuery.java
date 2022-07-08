@@ -1,5 +1,6 @@
 package com.example.influx.example.read;
 
+import com.example.influx.domain.Temperature;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
 import com.influxdb.client.InfluxDBClient;
@@ -28,19 +29,20 @@ public class AsynchronousQuery {
 
         QueryApi queryApi = influxDBClient.getQueryApi();
 
-        queryApi.query(flux,Temperature.class, (cancellable, temperature) -> {
+        queryApi.query(flux, Temperature.class, (cancellable, temperature) -> {
 
-            //
-            // The callback to consume a FluxRecord.
+            //t
+            // The callback to consume a FluxRecord
             //
             // cancelable - object has the cancel method to stop asynchronous query
             //
-            System.out.println(temperature.time + ": " + temperature.value);
+            System.out.println(temperature.location+"===="+temperature.value);
+//            System.out.println(temperature.time + "====" + temperature.valueInt);
 
         }, throwable -> {
 
             //
-            // The callback to consume any error notification.
+            // The callback to consume any error notification
             //
             System.out.println("Error occurred: " + throwable.getMessage());
 
@@ -54,21 +56,33 @@ public class AsynchronousQuery {
         });
 
         System.out.println("before sleep");
-        Thread.sleep(5_000);
+        Thread.sleep(1_000);
 
         influxDBClient.close();
     }
 
-    @Measurement(name = "temperature")
-    public static class Temperature {
-
-        @Column(tag = true)
-        String location;
-
-        @Column
-        Double value;
-
-        @Column(timestamp = true)
-        Instant time;
-    }
+//    @Measurement(name = "temperature")
+//    public static class Temperature {
+//
+//        @Column(tag = true)
+//        String location;
+//
+//        @Column
+//        Double value;
+//
+//        @Column(timestamp = true)
+//        Instant time;
+//    }
+//@Measurement(name = "school")
+//public static class School {
+//
+//    @Column(tag = true)
+//    String location;
+//
+//    @Column
+//    String value;
+//
+//    @Column(timestamp = true)
+//    Instant time;
+//}
 }

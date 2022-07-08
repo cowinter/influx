@@ -1,5 +1,6 @@
 package com.example.influx.example.read;
 
+import com.example.influx.domain.Temperature;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
 import com.influxdb.client.InfluxDBClient;
@@ -25,20 +26,33 @@ public class SynchronousQuery {
 
         InfluxDBClient influxDBClient = InfluxDBClientFactory.create("http://81.68.76.15:8086", token, org);
 
-        String flux = "from(bucket:\"bucket_02\") |> range(start: 0)";
+
+//        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn:(r) => r._measurement == \"temperature\")";
+//
+//        // FluxTable
+//        QueryApi queryApi = influxDBClient.getQueryApi();
+//
+//        List<FluxTable> tables = queryApi.query(flux);
+//        System.out.println(tables.size());
+//        for (FluxTable fluxTable : tables) {
+//            List<FluxRecord> records = fluxTable.getRecords();
+//            for (FluxRecord fluxRecord : records) {
+////                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_value"));
+//                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_field")+"="+fluxRecord.getValueByKey("_value"));
+//            }
+//        }
+
+
+        //
+        // Map to POJO
+        //
+        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn: (r) => r._measurement == \"temperature\")";
 
         QueryApi queryApi = influxDBClient.getQueryApi();
 
-        //
-        // Query data
-        //
-        List<FluxTable> tables = queryApi.query(flux);
-        System.out.println(tables.size());
-        for (FluxTable fluxTable : tables) {
-            List<FluxRecord> records = fluxTable.getRecords();
-            for (FluxRecord fluxRecord : records) {
-                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_value"));
-            }
+        List<Temperature> temperatures = queryApi.query(flux, Temperature.class);
+        for (Temperature temperature : temperatures) {
+            System.out.println(temperature.location +": " + temperature.value + " at " + temperature.time);
         }
 
         influxDBClient.close();
