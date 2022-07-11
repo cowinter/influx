@@ -1,6 +1,6 @@
 package com.example.influx.example.read;
 
-import com.example.influx.domain.Temperature;
+//import com.example.influx.domain.Temperature;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
 import com.influxdb.client.InfluxDBClient;
@@ -61,18 +61,18 @@ public class AsynchronousQuery {
         influxDBClient.close();
     }
 
-//    @Measurement(name = "temperature")
-//    public static class Temperature {
-//
-//        @Column(tag = true)
-//        String location;
-//
-//        @Column
-//        Double value;
-//
-//        @Column(timestamp = true)
-//        Instant time;
-//    }
+    @Measurement(name = "temperature")
+    public static class Temperature {
+
+        @Column(tag = true)
+        String location;
+
+        @Column
+        Double value;
+
+        @Column(timestamp = true)
+        Instant time;
+    }
 //@Measurement(name = "school")
 //public static class School {
 //

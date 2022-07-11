@@ -1,6 +1,7 @@
 package com.example.influx.monitor;
 
 import com.example.influx.annotation.LogMath;
+import com.example.influx.domain.Student;
 import com.example.influx.domain.Temperature;
 import com.example.influx.example.write.WriteDataNoBlocking;
 import com.influxdb.annotations.Column;
@@ -55,18 +56,21 @@ public class Monitor {
                 Throwable throwable = writeErrorEvent.getThrowable();
                 System.out.println(throwable.getMessage());
             });
-            //
-            // Write by POJO
-            //
-            Temperature temperature = new Temperature();
-            temperature.location = "south";
-//            temperature.city = "shanghai";
-//            temperature.valueInt = Integer.valueOf(random.nextInt(100));
-//            temperature.value = Double.valueOf(random.nextInt(100));
-            temperature.value = random.nextInt(100);
-            temperature.time = Instant.now();
-
-            writeApi.writeMeasurement(WritePrecision.NS, temperature);
+//            Temperature temperature = new Temperature();
+//            temperature.location = "south";
+////            temperature.city = "shanghai";
+////            temperature.valueInt = Integer.valueOf(random.nextInt(100));
+////            temperature.value = Double.valueOf(random.nextInt(100));
+//            temperature.value = random.nextInt(100);
+//            temperature.time = Instant.now();
+//
+//            writeApi.writeMeasurement(WritePrecision.NS, temperature);
+            Student student = new Student();
+            student.name = "小明";
+            student.sex = "男";
+            student.age = 10;
+            student.time = Instant.now();
+            writeApi.writeMeasurement(WritePrecision.NS, student);
         }
 //        influxDBClient.close();
     }

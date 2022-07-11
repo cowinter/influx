@@ -24,7 +24,7 @@ public class DeleteData {
 
         try {
 
-            OffsetDateTime start = OffsetDateTime.now().minus(2, ChronoUnit.DAYS);
+            OffsetDateTime start = OffsetDateTime.now().minus(10, ChronoUnit.DAYS);
             System.out.println(start);
             OffsetDateTime stop = OffsetDateTime.now();
             System.out.println(stop);

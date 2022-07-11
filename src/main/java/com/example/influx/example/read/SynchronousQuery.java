@@ -1,5 +1,6 @@
 package com.example.influx.example.read;
 
+import com.example.influx.domain.Student;
 import com.example.influx.domain.Temperature;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
@@ -27,33 +28,42 @@ public class SynchronousQuery {
         InfluxDBClient influxDBClient = InfluxDBClientFactory.create("http://81.68.76.15:8086", token, org);
 
 
-//        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn:(r) => r._measurement == \"temperature\")";
-//
-//        // FluxTable
-//        QueryApi queryApi = influxDBClient.getQueryApi();
-//
-//        List<FluxTable> tables = queryApi.query(flux);
-//        System.out.println(tables.size());
-//        for (FluxTable fluxTable : tables) {
-//            List<FluxRecord> records = fluxTable.getRecords();
-//            for (FluxRecord fluxRecord : records) {
-////                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_value"));
-//                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_field")+"="+fluxRecord.getValueByKey("_value"));
-//            }
-//        }
+        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn:(r) => r._measurement == \"student\")";
+
+        // FluxTable
+        QueryApi queryApi = influxDBClient.getQueryApi();
+
+        List<FluxTable> tables = queryApi.query(flux);
+        System.out.println(tables.size());
+        for (FluxTable fluxTable : tables) {
+            List<FluxRecord> records = fluxTable.getRecords();
+            for (FluxRecord fluxRecord : records) {
+//                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_value"));
+                System.out.println(fluxRecord.getTime() + ": " + fluxRecord.getValueByKey("_field")+"="+fluxRecord.getValueByKey("_value"));
+            }
+        }
 
 
         //
         // Map to POJO
         //
-        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn: (r) => r._measurement == \"temperature\")";
+//        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn: (r) => r._measurement == \"temperature\")";
+//
+//        QueryApi queryApi = influxDBClient.getQueryApi();
+//
+//        List<Temperature> temperatures = queryApi.query(flux, Temperature.class);
+//        for (Temperature temperature : temperatures) {
+//            System.out.println(temperature.location +": " + temperature.value + " at " + temperature.time);
+//        }
 
-        QueryApi queryApi = influxDBClient.getQueryApi();
-
-        List<Temperature> temperatures = queryApi.query(flux, Temperature.class);
-        for (Temperature temperature : temperatures) {
-            System.out.println(temperature.location +": " + temperature.value + " at " + temperature.time);
-        }
+//        String flux = "from(bucket:\"bucket_02\") |> range(start: 0) |> filter(fn: (r) => r._measurement == \"student\")";
+//
+//        QueryApi queryApi = influxDBClient.getQueryApi();
+//
+//        List<Student> students = queryApi.query(flux, Student.class);
+//        for (Student student : students) {
+//            System.out.println(student.name +": " + student.sex + "-" +student.age + "-" + student.time);
+//        }
 
         influxDBClient.close();
     }
