@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.example.influx.config.configOrder.B_SonConfig,\
+  com.example.influx.config.configOrder.C_ParentConfig

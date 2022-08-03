@@ -58,7 +58,7 @@ public class Request<T> {
         Integer a = new Request<String>().getListFirst(data);
 
         // 编译出错，入参由Request<T> T的决定，受Request<T>影响
-        //new Request<String>().getListFirst2(data);
+//        new Request<String>().getListFirst2(data);
 
         // 没什么区别
         String aa = new Request<String>().getListFirst(data2);
