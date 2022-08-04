@@ -11,5 +11,5 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ParentAnno {
-    String value() default "parent";
+    String pValue() default "parent";
 }

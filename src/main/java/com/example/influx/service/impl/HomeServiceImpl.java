@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
  * @createTime 2022-06-24
  */
 @Service
+@SonAnno("类上的注解")
 public class HomeServiceImpl implements HomeService {
     @Override
 //    @LogMath(value = "sayHi",ratio = 1000)
-    @SonAnno("子注解")
+//    @SonAnno("方法上的注解")
+//    @ParentAnno
     public String sayHi() {
         return "hello";
     }
